@@ -40,9 +40,9 @@ function Cart() {
             <button>+</button>
           </div>
           <div className="removeProductBtn">
-            <a className="btn-floating waves-effect waves-light red lighten-1">
+            <button className="btn-floating waves-effect waves-light red lighten-1">
               X
-            </a>
+            </button>
           </div>
         </div>
       </div>

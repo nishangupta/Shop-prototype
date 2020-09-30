@@ -1,27 +1,26 @@
 import React from 'react'
 import Product from './Product'
+import { connect } from 'react-redux'
 
-function Products() {
+function Products({ products }) {
   return (
     <div className="product">
       <div className="section my-5">
         <div className="row">
-          <div className="col s6 m4">
-            <Product />
-          </div>
-          <div className="col s6 m4">
-            <Product />
-          </div>
-          <div className="col s6 m4">
-            <Product />
-          </div>
-          <div className="col s6 m4">
-            <Product />
-          </div>
+          {products &&
+            products.map((product) => (
+              <div className="col s6 m4" key={product.id}>
+                <Product product={product} />
+              </div>
+            ))}
         </div>
       </div>
     </div>
   )
 }
-
-export default Products
+const mapStateToProps = (state) => {
+  return {
+    products: state.shop.products,
+  }
+}
+export default connect(mapStateToProps)(Products)

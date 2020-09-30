@@ -1,25 +1,48 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default function AppHeader() {
+function AppHeader({ authUser }) {
+  const { currentUser, error } = authUser
+
   return (
     <div className="appheader">
       <nav>
         <div className="nav-wrapper px-2 cyan darken-2">
-          <span className="brand-logo">Ecommerce</span>
+          <Link to="/">
+            <span className="brand-logo">Ecommerce</span>
+          </Link>
           <ul id="nav-mobile" className="right hide-on-sm-and-down">
             <li>
-              <Link to="/">Shop</Link>
+              <NavLink to="/">Shop</NavLink>
             </li>
             <li>
-              <Link to="/cart">Cart(2)</Link>
+              <NavLink to="/cart">Cart(2)</NavLink>
             </li>
-            <li>
-              <Link to="/account">Account</Link>
-            </li>
+            {currentUser ? (
+              <li>
+                <NavLink
+                  to="/account"
+                  className="btn btn-floating cyan lighten-1"
+                >
+                  {currentUser.initials}
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/signup">Signup</NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  return {
+    authUser: state.authUser,
+  }
+}
+
+export default connect(mapStateToProps)(AppHeader)
