@@ -36,7 +36,7 @@ function Cart({ cart, clearCart }) {
             <span>Product(s)</span>
           </div>
           <div className="right">
-            <span className="teal-text darken-3">${cartTotal}</span>
+            Total: <span className="teal-text darken-3">${cartTotal}</span>
           </div>
         </div>
         <div className="divider"></div>
