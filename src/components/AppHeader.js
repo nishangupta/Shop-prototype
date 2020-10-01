@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-function AppHeader({ authUser }) {
+function AppHeader({ authUser, cartItems }) {
   const { currentUser, error } = authUser
 
   return (
@@ -17,7 +17,7 @@ function AppHeader({ authUser }) {
               <NavLink to="/">Shop</NavLink>
             </li>
             <li>
-              <NavLink to="/cart">Cart(2)</NavLink>
+              <NavLink to="/cart">Cart({cartItems})</NavLink>
             </li>
             {currentUser ? (
               <li>
@@ -42,6 +42,7 @@ function AppHeader({ authUser }) {
 const mapStateToProps = (state) => {
   return {
     authUser: state.authUser,
+    cartItems: state.cart.products?.length,
   }
 }
 

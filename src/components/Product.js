@@ -1,9 +1,17 @@
 import React from 'react'
+import { toast } from 'react-toastify'
 import './Product.css'
+import { connect } from 'react-redux'
+import { addToCart } from '../store/cart/cartAction'
 
-export default function Product({ product }) {
+function Product({ product, addToCart }) {
+  const handleCart = (product) => {
+    toast.info('Adding to cart : ' + product.title)
+    addToCart(product)
+  }
+
   return (
-    <div className="card">
+    <div className="card" key={product.id}>
       <div className="card-image waves-effect waves-block waves-light">
         <img
           className="activator responsive-img p-1"
@@ -19,7 +27,12 @@ export default function Product({ product }) {
           {product.title}
         </span>
         <p className="center-align">
-          <button className="btn block waves-effect ">Add To Cart</button>
+          <button
+            onClick={() => handleCart(product)}
+            className="btn block waves-effect "
+          >
+            Add To Cart
+          </button>
         </p>
       </div>
       <div className="card-reveal">
@@ -31,3 +44,9 @@ export default function Product({ product }) {
     </div>
   )
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (product) => dispatch(addToCart(product)),
+  }
+}
+export default connect(null, mapDispatchToProps)(Product)

@@ -1,6 +1,8 @@
 import React from 'react'
 import './Default.css'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.scss'
+import { ToastContainer } from 'react-toastify'
 import { Switch, Route } from 'react-router-dom'
 import { auth, db } from './firebase'
 import { connect } from 'react-redux'
@@ -39,6 +41,17 @@ class App extends React.Component {
     return (
       <div className="app">
         <AppHeader />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/cart" component={Cart} />

@@ -14,6 +14,13 @@ const InitialState = {
       desc: 'Winter jacket for men 2020',
       imgUrl: 'assets/product.jpg',
     },
+    {
+      id: 3,
+      title: 'Jacket men 2002',
+      price: 4000,
+      desc: 'Winter jacket for men 2020',
+      imgUrl: 'assets/product3.jpg',
+    },
   ],
 }
 const shopReducer = (state = InitialState, action) => {

@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Cart.scss'
+import CartItem from '../components/CartItem'
+import { connect } from 'react-redux'
+import { clearCart } from '../store/cart/cartAction'
 
-function Cart() {
+function Cart({ cart, clearCart }) {
+  const handleClearCart = () => {
+    if (window.confirm('Do you want to clear the cart?') == true) {
+      clearCart()
+    }
+  }
   return (
     <div className="cart container">
       <div className="cart__wrapper">
@@ -10,44 +18,36 @@ function Cart() {
           <div>
             <span>Product(s)</span>
           </div>
-          {/* <div>
-            <span>Description</span>
-          </div>
-          <div>
-            <span>Price</span>
-          </div>
-          <div>
-            <span>Quantity</span>
-          </div>
-          <div>
-            <span>Remove</span>
-          </div> */}
         </div>
         <div className="divider"></div>
-        <div className="cart__body">
-          <div className="cart__productImg">
-            <img src="assets/product2.jpg" alt="" />
+        {!cart.length ? (
+          <div className="section">
+            <p>No Products in the cart</p>
           </div>
-          <div>
-            <span>Watch 2020 popular</span>
-          </div>
-          <div>
-            <span>$20</span>
-          </div>
-          <div className="cart__quantitySelector">
-            <button>-</button>
-            <p>1</p>
-            <button>+</button>
-          </div>
-          <div className="removeProductBtn">
-            <button className="btn-floating waves-effect waves-light red lighten-1">
-              X
+        ) : (
+          cart.map((product) => <CartItem key={product.id} product={product} />)
+        )}
+        <div className="divider"></div>
+        <div className="section mt-3">
+          <div className="right">
+            <button className="btn red lighten-1" onClick={handleClearCart}>
+              Clear Cart
             </button>
+            <button className="btn mx-3">Checkout</button>
           </div>
         </div>
       </div>
     </div>
   )
 }
-
-export default Cart
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.products,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearCart: () => dispatch(clearCart()),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

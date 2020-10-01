@@ -4,7 +4,7 @@ import Products from '../components/Products'
 
 function Homepage() {
   return (
-    <div className="homepage container p-2">
+    <div className="homepage container">
       <Products />
     </div>
   )
