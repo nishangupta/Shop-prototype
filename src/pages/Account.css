@@ -1,0 +1,12 @@
+.account__links {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.account__links:hover {
+  background-color: #cae8eb;
+}
+.account__links a {
+  color: #0097a7;
+  font-weight: bolder;
+}

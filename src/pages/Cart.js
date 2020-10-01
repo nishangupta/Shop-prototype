@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Cart.scss'
 import CartItem from '../components/CartItem'
 import { connect } from 'react-redux'
 import { clearCart } from '../store/cart/cartAction'
 
 function Cart({ cart, clearCart }) {
+  const [cartTotal, setCartTotal] = useState(0)
+
+  useEffect(() => {
+    if (cart.length) {
+      let total = 0
+      cart.forEach((product) => {
+        total += Number(product.price * product.quantity)
+      })
+      setCartTotal(total)
+    } else {
+      setCartTotal(0)
+    }
+
+    localStorage.setItem('ecommerce-cart', JSON.stringify(cart))
+  }, [cart])
+
   const handleClearCart = () => {
-    if (window.confirm('Do you want to clear the cart?') == true) {
+    if (window.confirm('Do you want to clear the cart?') === true) {
       clearCart()
     }
   }
+
   return (
     <div className="cart container">
       <div className="cart__wrapper">
@@ -17,6 +34,9 @@ function Cart({ cart, clearCart }) {
         <div className="cart__header">
           <div>
             <span>Product(s)</span>
+          </div>
+          <div className="right">
+            <span className="teal-text darken-3">${cartTotal}</span>
           </div>
         </div>
         <div className="divider"></div>

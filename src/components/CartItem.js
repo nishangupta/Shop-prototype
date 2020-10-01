@@ -5,8 +5,15 @@ import {
   cartDecrement,
   removeFromCart,
 } from '../store/cart/cartAction'
+import { toast } from 'react-toastify'
 
 function CartItem({ product, addToCart, cartDecrement, removeFromCart }) {
+  const handleRemove = (id) => {
+    if (window.confirm('Remove from cart?')) {
+      removeFromCart(id)
+      toast.error('Product removed from cart')
+    }
+  }
   return (
     <div className="cartItem">
       <div className="cartItem__productImg">
@@ -26,7 +33,7 @@ function CartItem({ product, addToCart, cartDecrement, removeFromCart }) {
       <div className="removeProductBtn">
         <button
           className="btn-floating waves-effect waves-light red lighten-1"
-          onClick={() => removeFromCart(product.id)}
+          onClick={() => handleRemove(product.id)}
         >
           X
         </button>
